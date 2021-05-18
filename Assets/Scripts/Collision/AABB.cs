@@ -1,0 +1,40 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public struct AABB
+{
+	public Vector2 center { get; set; }
+	public Vector2 size { get; set; }
+	public Vector2 extents { get => size * 0.5f; }
+
+	public Vector2 min { get => center - extents; }
+	public Vector2 max { get => center + extents; }
+
+	public AABB(Vector2 center, Vector2 size)
+	{
+		this.center = center;
+		this.size = size;
+	}
+
+	public bool Contains(Vector2 point)
+    {
+		bool x = point.x >= min.x && point.x <= max.x;
+		bool y = point.y >= min.y && point.y <= max.y;
+		return x && y;
+    }
+
+	public bool Contains(AABB aabb)
+    {
+		return aabb.max.x >= min.x && aabb.min.x <= max.x &&
+			   aabb.max.y >= min.y && aabb.min.y <= max.y;
+	}
+
+	public void Draw(Color color, float width = 0.05f)
+    {
+		Lines.Instance.AddLine(new Vector2(min.x, min.y), new Vector2(max.x, min.y), color, width);
+		Lines.Instance.AddLine(new Vector2(min.x, max.y), new Vector2(max.x, max.y), color, width);
+		Lines.Instance.AddLine(new Vector2(min.x, min.y), new Vector2(min.x, max.y), color, width);
+		Lines.Instance.AddLine(new Vector2(max.x, min.y), new Vector2(max.x, max.y), color, width);
+    }
+}

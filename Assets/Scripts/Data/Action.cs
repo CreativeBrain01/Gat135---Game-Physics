@@ -4,7 +4,17 @@ using UnityEngine;
 
 public abstract class Action : MonoBehaviour
 {
-    public bool active { get; set; } = false;
+	public enum eActionType
+	{
+		Creator,
+		Connector,
+		Force,
+		Selector
+	}
+
+
+	public bool active { get; set; } = false;
+    public abstract eActionType actionType { get; }
 
     public abstract void StartAction();
 

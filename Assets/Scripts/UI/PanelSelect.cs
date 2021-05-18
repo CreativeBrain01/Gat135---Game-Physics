@@ -11,6 +11,8 @@ public class PanelSelect : MonoBehaviour
     KeyCode decrementCode = KeyCode.LeftArrow;
     KeyCode incrementCode = KeyCode.RightArrow;
 
+    public Editor editor;
+
     private void Update()
     {
         if (Input.GetKeyDown(decrementCode)) Decrement();
@@ -18,7 +20,14 @@ public class PanelSelect : MonoBehaviour
 
         for (int i = 0; i < panels.Length; i++)
         {
-            panels[i].SetActive(i == selected);
+            bool active = i == selected;
+            panels[i].SetActive(active);
+
+            if (active)
+            {
+                ActionHolder ah = panels[i].GetComponent<ActionHolder>();
+                editor.SetAction(ah.actionType);
+            }
         }
     }
 

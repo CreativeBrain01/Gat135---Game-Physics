@@ -7,5 +7,5 @@ public class FloatData : ScriptableObject
 {
     public float value;
 
-    //public static explicit operator bool(float data) { return data.value; }
+    public static implicit operator float(FloatData data) { return data.value; }
 }

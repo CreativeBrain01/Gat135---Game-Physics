@@ -12,6 +12,8 @@ public class Creator : Action
     public FloatData restitution;
     public BodyEnumData bodyType;
 
+    public override eActionType actionType { get { return eActionType.Creator; } }
+
     bool action { get; set; } = false;
     bool oneTime { get; set; } = false;
 
@@ -47,6 +49,16 @@ public class Creator : Action
                 body.AddForce(force);
                 World.Instance.bodies.Add(body);
             }
-        }
+        } /*else if (Input.GetMouseButton(0))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            if (hit.collider != null)
+            {
+                if (hit.collider.GetComponent<Shape>())
+                {
+                    Destroy(hit.collider.gameObject);
+                }
+            }
+        }*/
     }
 }
