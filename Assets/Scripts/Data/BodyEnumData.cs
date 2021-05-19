@@ -16,5 +16,5 @@ public class BodyEnumData : EnumData
     public eType value;
 
     public override int index { get => (int)value; set => this.value = (eType)value; }
-    public override string[] names { get => Enum.GetNames(typeof(eType)); set { names = value; } }
+    public override string[] names { get => Enum.GetNames(typeof(eType)); }
 }

@@ -11,7 +11,9 @@ public class World : MonoBehaviour
     public FloatData gravitation;
     public FloatData fixedFPS;
     public StringData trueFPS;
+    public StringData collisionText;
     public VectorField vectorField;
+    public BroadPhaseType broadPhaseType;
 
     static World instance;
     public static World Instance { get { return instance; } }
@@ -25,7 +27,8 @@ public class World : MonoBehaviour
     AABB aabb;
     public AABB AABB { get => aabb; }
 
-    BroadPhase broadPhase = new QuadTree();
+    BroadPhase broadPhase = new BVH();
+    BroadPhase[] broadPhases = { null, new QuadTree(), new BVH() };
 
     private void Awake()
     {
@@ -46,6 +49,9 @@ public class World : MonoBehaviour
         float dt = Time.deltaTime;
 
         nextFPSUpdate += dt;
+
+        broadPhase = broadPhases[broadPhaseType.index];
+
         if (nextFPSUpdate >= fpsUpdateTime)
         {
             nextFPSUpdate = 0;
@@ -83,6 +89,8 @@ public class World : MonoBehaviour
                 contacts.ForEach(contact => { contact.bodyA.shape.color = Color.red; contact.bodyB.shape.color = Color.red; });
             }
         }
+
+        collisionText.value = "Broad Phase: " + broadPhase.potentialCollisionCount;
 
         broadPhase.Draw();
 

@@ -1,16 +1,16 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-[CreateAssetMenu(fileName = "eForce", menuName = "Data/Enum/eForce")]
-public class ForceModeData : EnumData
+[CreateAssetMenu(fileName = "BodyPhaseType", menuName = "Data/Enum/Broadphase")]
+public class BroadPhaseType : EnumData
 {
     public enum eType
     {
-        Constant,
-        InverseLinear,
-        InverseSquared
+        None,
+        QuadTree,
+        BVH
     }
 
     public eType value;
@@ -18,3 +18,4 @@ public class ForceModeData : EnumData
     public override int index { get => (int)value; set => this.value = (eType)value; }
     public override string[] names { get => Enum.GetNames(typeof(eType)); }
 }
+
